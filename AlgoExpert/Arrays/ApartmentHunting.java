@@ -3,7 +3,7 @@ import java.util.*;
 
 class ApartmentHunting {
 
-	static int solve(HashMap < Integer, HashMap<String, Boolean>> buildings, String[]req) {
+	static int solve(TreeMap < Integer, HashMap<String, Boolean>> buildings, String[]req) {
 		int [][]position = new int[req.length][buildings.size()];
 		int c = 0;
 		for (String i : req)
@@ -12,7 +12,7 @@ class ApartmentHunting {
 		return getminMaximum(position, req.length, buildings.size());
 	}
 
-	static int[] getclosestLeftRight(String req, HashMap < Integer, HashMap<String, Boolean>> buildings) {
+	static int[] getclosestLeftRight(String req, TreeMap < Integer, HashMap<String, Boolean>> buildings) {
 
 		int []minDistance = new int[buildings.size()];
 		int index = Integer.MAX_VALUE;
@@ -55,7 +55,7 @@ class ApartmentHunting {
 
 	public static void main(String[] args) {
 
-		HashMap<Integer, HashMap<String, Boolean>> buildings = new HashMap<>() {
+		TreeMap<Integer, HashMap<String, Boolean>> buildings = new TreeMap<>() {
 			{
 				put(0, new HashMap<String, Boolean>() {
 					{
