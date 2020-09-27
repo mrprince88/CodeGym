@@ -1,25 +1,27 @@
 class DoublyLinkedList {
 
-	static class LinkedList<T> {
-		class Node {
-			T data;
-			Node next, prev;
+	static class Node<T> {
+		T data;
+		Node<T> next, prev;
 
-			Node(T data) {
-				this.data = data;
-				next = null;
-				prev = null;
-			}
+		Node(T data) {
+			this.data = data;
+			next = null;
+			prev = null;
 		}
+	}
 
-		Node head;
+	static class LinkedList<T> {
+
+
+		Node<T> head;
 
 		void add(T data) {
-			Node n = new Node(data);
+			Node<T> n = new Node<>(data);
 			if (head == null) {
 				head = n;
 			} else {
-				Node index = head;
+				Node<T> index = head;
 				while (index.next != null)
 					index = index.next;
 				n.prev = index;
@@ -29,7 +31,7 @@ class DoublyLinkedList {
 
 		int size() {
 			int len = 0;
-			Node index = head;
+			Node<T> index = head;
 			while (index != null) {
 				len++;
 				index = index.next;
@@ -38,12 +40,12 @@ class DoublyLinkedList {
 		}
 
 		void insert(int pos, T data) {
-			Node n = new Node(data);
+			Node<T> n = new Node<>(data);
 			if (pos == 0) {
 				n.next = head;
 				head = n;
 			} else {
-				Node index = head;
+				Node<T> index = head;
 				while (index.next != null && --pos >= 0) {
 					index = index.next;
 				}
@@ -62,7 +64,7 @@ class DoublyLinkedList {
 		}
 
 		void display() {
-			Node index = head;
+			Node<T> index = head;
 			while (index != null) {
 				System.out.print(index.data + " ");
 				index = index.next;
@@ -71,7 +73,7 @@ class DoublyLinkedList {
 		}
 
 		void search(int data) {
-			Node index = head;
+			Node<T> index = head;
 			int c = 0;
 			while (index != null) {
 				if (index.data.equals(data))
@@ -82,13 +84,13 @@ class DoublyLinkedList {
 		}
 
 		void remove(T data) {
-			Node index = head;
+			Node<T> index = head;
 			while (index != null && !index.data.equals(data)) {
 				index = index.next;
 			}
 			if (index.data.equals(data)) {
 				if (index.prev != null) {
-					Node temp = index.prev;
+					Node<T> temp = index.prev;
 					while (index != null) {
 						temp.next = index.next;
 						temp = temp.next;
@@ -100,7 +102,7 @@ class DoublyLinkedList {
 		}
 
 		boolean contains(int data) {
-			Node index = head;
+			Node<T> index = head;
 			while (index != null) {
 				if (index.data.equals(data))
 					return false;

@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 class ApartmentHunting {
 
 	static int solve(TreeMap < Integer, HashMap<String, Boolean>> buildings, String[]req) {

@@ -1,24 +1,29 @@
 class RemoveNthFromEnd {
 
-	static class LinkedList<T> {
-		class Node {
-			T data;
-			Node next;
+	static class Node<T> {
+		T data;
+		Node<T> next;
 
-			Node(T data) {
-				this.data = data;
-				next = null;
-			}
+		Node(T data) {
+			this.data = data;
+			next = null;
+		}
+	}
+
+	static class LinkedList<T> {
+
+		Node<T> head;
+
+		Node<T> getHead() {
+			return head;
 		}
 
-		Node head;
-
 		void add(T data) {
-			Node n = new Node(data);
+			Node<T> n = new Node<>(data);
 			if (head == null) {
 				head = n;
 			} else {
-				Node index = head;
+				Node<T> index = head;
 				while (index.next != null)
 					index = index.next;
 				index.next = n;
@@ -34,23 +39,26 @@ class RemoveNthFromEnd {
 			System.out.println();
 		}
 
-		void removeNthNodeFromEnd(int index) {
-			Node first = head, second = head;
-			int c = 0;
-			while (c != index + 1) {
-				second = second.next;
-				c++;
-			}
-			while (second != null) {
-				first = first.next;
-				second = second.next;
-			}
-			Node temp = first.next;
-			temp = temp.next;
-			first.next = temp;
-
-		}
 	}
+
+	static void removeNthNodeFromEnd(LinkedList<Integer> list, int index) {
+		Node <Integer> first = list.getHead(), second = list.getHead();
+		int c = 0;
+		while (c != index + 1) {
+			second = second.next;
+			c++;
+		}
+		while (second != null) {
+			first = first.next;
+			second = second.next;
+		}
+		Node<Integer> temp = first.next;
+		temp = temp.next;
+		first.next = temp;
+
+	}
+
+
 
 	public static void main(String[] args) {
 		LinkedList<Integer> list = new LinkedList<>();
@@ -59,7 +67,7 @@ class RemoveNthFromEnd {
 		list.add(7); list.add(8); list.add(9);
 		int index = 4;
 		list.display();
-		list.removeNthNodeFromEnd(7);
+		removeNthNodeFromEnd(list, 7);
 		list.display();
 
 	}
