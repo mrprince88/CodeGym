@@ -42,18 +42,25 @@ class CalenderMatching {
 	}
 
 	static ArrayList<Time[]> flattenCalender(ArrayList<Time[]> calender) {
+
+		if(calender.isEmpty())
+			return calender;
+
 		ArrayList<Time[]> flattenedList = new ArrayList<>();
 		flattenedList.add(calender.get(0));
+		Time[] previousMeeting = flattenedList.get(0);
+
 		for (int i = 1; i < calender.size(); i++) {
 			Time[] currentMeeting = calender.get(i);
-			Time[] previousMeeting = flattenedList.get(flattenedList.size() - 1);
 
-			if (compare(previousMeeting[1], currentMeeting[0]) >= 0) {
-				Time[] newPreviousMeeting = {previousMeeting[0], currentMeeting[1]};
-				flattenedList.set(flattenedList.size() - 1, newPreviousMeeting);
-			} else
+			if (compare(previousMeeting[1], currentMeeting[0]) >= 0)
+				previousMeeting[1] = currentMeeting[1];
+			else{
 				flattenedList.add(currentMeeting);
+				previousMeeting=currentMeeting;
+			}
 		}
+		
 		return flattenedList;
 	}
 

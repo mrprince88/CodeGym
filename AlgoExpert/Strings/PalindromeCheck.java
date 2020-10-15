@@ -5,10 +5,8 @@ class PalindromeCheck {
 		StringBuffer sb = new StringBuffer();
 		for (int i = str.length() - 1; i >= 0; i--)
 			sb.append(str.charAt(i));
-
 		return sb.toString().equals(str);
 	}
-
 	//O(n) space && O(n) time
 	static boolean PalindromeRecursive(String str, int i) {
 		int j = str.length() - 1 - i;
@@ -34,3 +32,4 @@ class PalindromeCheck {
 		System.out.println(Palindrome2(str));
 	}
 }
+
