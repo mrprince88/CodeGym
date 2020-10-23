@@ -1,7 +1,7 @@
 class MergeSort {
 
     static void merge(int []a, int l, int m, int r) {
-        if(a[m]<=a[m+1])
+        if (a[m] <= a[m + 1])
             return;
         int n1 = m - l + 1;
         int n2 = r - m;
