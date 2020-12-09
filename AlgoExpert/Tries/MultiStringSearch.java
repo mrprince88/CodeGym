@@ -2,7 +2,7 @@ import java.util.*;
 
 class MultiStringSearch {
 
-	// Approach One
+	// *** Approach One ***
 
 	static class ModifiedSuffixTrie {
 
@@ -65,7 +65,7 @@ class MultiStringSearch {
 	}
 
 
-	//Appproach Two
+	// *** Appproach Two ***
 
 	static class TrieNode {
 		HashMap<Character, TrieNode> children;
