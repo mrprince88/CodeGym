@@ -1,7 +1,26 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+class Problem4 {
+
+    static int gcd(int a, int b) {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+    }
+
+    static int maxfact(int g, int n) {
+        int max_fact = 0;
+        for (int i = 1; i <= g; i++) {
+            if (g % i == 0) {
+                if (i <= n)
+                    max_fact = Math.max(max_fact, i);
+                if (g / i <= n)
+                    max_fact = Math.max(max_fact, g / i);
+            }
+        }
+        return max_fact;
+    }
 
     public static void main(String[] args) throws IOException {
 
@@ -10,44 +29,18 @@ public class C {
         int t = in.nextInt();
         while (t-- > 0) {
             int n = in.nextInt();
-
-            long[][] cmd = new long[n + 1][2];
-
-            cmd[n][0] = Long.MAX_VALUE;
-            cmd[n][1] = -1;
-
-            for (int i = 0; i < n; i++) {
-                cmd[i][0] = in.nextLong();
-                cmd[i][1] = in.nextLong();
+            int m = in.nextInt();
+            int[] p = new int[m];
+            int g = 0;
+            for (int i = 0; i < m; i++) {
+                p[i] = in.nextInt();
+                g = gcd(g, p[i]);
             }
+            if (g > n)
+                g = maxfact(g, n);
 
-            long start = 0, end = 0, ans = 0, pos = 0;
+            pw.println(n - g);
 
-            for (int i = 0; i < n; ++i) {
-
-                if (cmd[i][0] >= end) {
-                    end = cmd[i][0] + Math.abs(pos - cmd[i][1]);
-                    start = pos;
-                    pos = cmd[i][1];
-                }
-
-                long time = end, p = pos;
-
-                if (start <= cmd[i][1] && cmd[i][1] <= pos) {
-                    time = end - (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (pos <= cmd[i][1] && cmd[i][1] <= start) {
-                    time = end + (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (cmd[i][0] <= time && time <= cmd[i + 1][0] && p == cmd[i][1])
-                    ++ans;
-            }
-
-            pw.println(ans);
         }
 
         pw.close();

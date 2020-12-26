@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+class Second {
 
     public static void main(String[] args) throws IOException {
 
@@ -9,45 +9,14 @@ public class C {
         PrintWriter pw = new PrintWriter(System.out);
         int t = in.nextInt();
         while (t-- > 0) {
+            int x = in.nextInt();
+            int y = in.nextInt();
+            int k = in.nextInt();
             int n = in.nextInt();
-
-            long[][] cmd = new long[n + 1][2];
-
-            cmd[n][0] = Long.MAX_VALUE;
-            cmd[n][1] = -1;
-
-            for (int i = 0; i < n; i++) {
-                cmd[i][0] = in.nextLong();
-                cmd[i][1] = in.nextLong();
-            }
-
-            long start = 0, end = 0, ans = 0, pos = 0;
-
-            for (int i = 0; i < n; ++i) {
-
-                if (cmd[i][0] >= end) {
-                    end = cmd[i][0] + Math.abs(pos - cmd[i][1]);
-                    start = pos;
-                    pos = cmd[i][1];
-                }
-
-                long time = end, p = pos;
-
-                if (start <= cmd[i][1] && cmd[i][1] <= pos) {
-                    time = end - (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (pos <= cmd[i][1] && cmd[i][1] <= start) {
-                    time = end + (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (cmd[i][0] <= time && time <= cmd[i + 1][0] && p == cmd[i][1])
-                    ++ans;
-            }
-
-            pw.println(ans);
+            if (Math.abs(y - x) % (2 * k) == 0)
+                pw.println("Yes");
+            else
+                pw.println("No");
         }
 
         pw.close();

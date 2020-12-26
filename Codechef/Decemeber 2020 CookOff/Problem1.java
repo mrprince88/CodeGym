@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+class Problem1 {
 
     public static void main(String[] args) throws IOException {
 
@@ -10,44 +10,18 @@ public class C {
         int t = in.nextInt();
         while (t-- > 0) {
             int n = in.nextInt();
-
-            long[][] cmd = new long[n + 1][2];
-
-            cmd[n][0] = Long.MAX_VALUE;
-            cmd[n][1] = -1;
-
+            String b = in.nextLine();
+            int cnt = 0;
             for (int i = 0; i < n; i++) {
-                cmd[i][0] = in.nextLong();
-                cmd[i][1] = in.nextLong();
+                if (b.charAt(i) == '1')
+                    ++cnt;
             }
 
-            long start = 0, end = 0, ans = 0, pos = 0;
+            if ((cnt + (120 - n)) >= 90)
+                pw.println("YES");
 
-            for (int i = 0; i < n; ++i) {
-
-                if (cmd[i][0] >= end) {
-                    end = cmd[i][0] + Math.abs(pos - cmd[i][1]);
-                    start = pos;
-                    pos = cmd[i][1];
-                }
-
-                long time = end, p = pos;
-
-                if (start <= cmd[i][1] && cmd[i][1] <= pos) {
-                    time = end - (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (pos <= cmd[i][1] && cmd[i][1] <= start) {
-                    time = end + (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (cmd[i][0] <= time && time <= cmd[i + 1][0] && p == cmd[i][1])
-                    ++ans;
-            }
-
-            pw.println(ans);
+            else
+                pw.println("NO");
         }
 
         pw.close();

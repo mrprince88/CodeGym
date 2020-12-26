@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+class Problem5 {
 
     public static void main(String[] args) throws IOException {
 
@@ -9,42 +9,59 @@ public class C {
         PrintWriter pw = new PrintWriter(System.out);
         int t = in.nextInt();
         while (t-- > 0) {
-            int n = in.nextInt();
 
-            long[][] cmd = new long[n + 1][2];
+            String s = in.nextLine();
 
-            cmd[n][0] = Long.MAX_VALUE;
-            cmd[n][1] = -1;
+            int[] maskS = new int[27];
 
-            for (int i = 0; i < n; i++) {
-                cmd[i][0] = in.nextLong();
-                cmd[i][1] = in.nextLong();
+            for (int i = 0; i < s.length(); i++)
+                if (s.charAt(i) != '?')
+                    maskS[s.charAt(i) - 97] ^= 1;
+
+            List<int[]> allGood = new ArrayList<>();
+
+            allGood.add(maskS);
+
+            for (int i = 0; i < 26; i++) {
+                int[] temp = new int[27];
+                for (int j = 0; j < 26; j++)
+                    temp[j] = maskS[j];
+                temp[i] ^= 1;
+                temp[26] = 1;
+                allGood.add(temp);
             }
 
-            long start = 0, end = 0, ans = 0, pos = 0;
+            int[] maskPrefix = new int[27];
+            Map<String, Integer> map = new HashMap<>();
+            map.put("000000000000000000000000000", 1);
 
-            for (int i = 0; i < n; ++i) {
+            long ans = 0;
 
-                if (cmd[i][0] >= end) {
-                    end = cmd[i][0] + Math.abs(pos - cmd[i][1]);
-                    start = pos;
-                    pos = cmd[i][1];
+            for (int i = 0; i < s.length(); i++) {
+
+                if (s.charAt(i) != '?')
+                    maskPrefix[s.charAt(i) - 97] ^= 1;
+                else
+                    maskPrefix[26] ^= 1;
+
+                for (int[] j : allGood) {
+
+                    String xor = "";
+
+                    for (int k = 0; k <= 26; k++)
+                        xor += (maskPrefix[k] ^ j[k]);
+
+                    ans += map.getOrDefault(xor, 0);
                 }
 
-                long time = end, p = pos;
+                StringBuffer sb = new StringBuffer();
+                for (int k = 0; k <= 26; k++)
+                    sb.append(maskPrefix[k]);
+                String temp = sb.toString();
 
-                if (start <= cmd[i][1] && cmd[i][1] <= pos) {
-                    time = end - (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (pos <= cmd[i][1] && cmd[i][1] <= start) {
-                    time = end + (pos - cmd[i][1]);
-                    p = cmd[i][1];
-                }
-
-                if (cmd[i][0] <= time && time <= cmd[i + 1][0] && p == cmd[i][1])
-                    ++ans;
+                int cnt = map.getOrDefault(temp, 0);
+                cnt++;
+                map.put(temp, cnt);
             }
 
             pw.println(ans);
