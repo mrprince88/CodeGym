@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class Problem2 {
+public class B {
 
     public static void main(String[] args) throws IOException {
 
@@ -9,14 +9,22 @@ class Problem2 {
         PrintWriter pw = new PrintWriter(System.out);
         int t = in.nextInt();
         while (t-- > 0) {
-            int x = in.nextInt();
-            int y = in.nextInt();
-            int k = in.nextInt();
-            int n = in.nextInt();
-            if (Math.abs(y - x) % (2 * k) == 0)
-                pw.println("Yes");
-            else
-                pw.println("No");
+            long n = in.nextLong();
+            long temp = n;
+
+            while (n != 0) {
+
+                long r = n % 10;
+
+                if (r != 0 && temp % r != 0) {
+                    n = ++temp;
+                    continue;
+                }
+
+                n = n / 10;
+            }
+
+            pw.println(temp);
         }
 
         pw.close();
