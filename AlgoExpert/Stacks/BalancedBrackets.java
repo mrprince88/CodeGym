@@ -5,6 +5,7 @@ class BalancedBrackets {
 		static class Node {
 			char val;
 			Node next;
+
 			Node(char val) {
 				this.val = val;
 				next = null;
