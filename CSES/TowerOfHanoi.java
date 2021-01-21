@@ -1,24 +1,29 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class TowerOfHanoi {
 
+	static List<int []> list = new ArrayList<>();
+
+	static void towerOfHanoi(int n, int a, int c, int b) {
+		if (n == 1) {
+			list.add(new int[] {a, c});
+			return;
+		}
+		towerOfHanoi(n - 1, a, b, c);
+		list.add(new int[] {a, c});
+		towerOfHanoi(n - 1, b, c, a);
+	}
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
-		}
-
+		int n = in.nextInt();
+		towerOfHanoi(n, 1, 3, 2);
+		pw.println(list.size());
+		for (int []i : list)
+			pw.println(i[0] + " " + i[1]);
 		pw.close();
 	}
 

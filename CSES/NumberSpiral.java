@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class NumberSpiral {
 
 
 	public static void main(String[] args)throws IOException {
@@ -10,15 +10,23 @@ public class C {
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
 		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+			long y = in.nextLong(), x = in.nextLong();
+			if (y == x) {
+				pw.println(1 + y * (y - 1));
+			} else if (y < x) {
+				long center = 1 + (x - 1) * x;
+				if ((x & 1) == 1)
+					pw.println(center + (x - y));
+				else
+					pw.println(center - (x - y));
+			} else {
+				long center = 1 + (y - 1) * y;
+				if ((y & 1) == 1)
+					pw.println(center - (y - x));
+				else
+					pw.println(center + (y - x));
+			}
 		}
-
 		pw.close();
 	}
 

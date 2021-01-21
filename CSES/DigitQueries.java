@@ -1,22 +1,59 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class DigitQueries {
 
+	static long func(long x, long size) {
+		long count = 0;
+		for (long i = 1; i < size; i++) {
+			long num = (9 * (long)Math.pow(10, i - 1));
+			count += (num * i);
+		}
+		long mi = (long)Math.pow(10, size - 1);
+		count += ((x - mi) * size) + 1;
+		return count;
+	}
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+		int q = in.nextInt();
+		while (q-- > 0) {
+			long k = in.nextLong();
+			long sum = 0, size = 0;
+
+			for (int i = 1; i <= 18; i++) {
+				long num = 9 * (long)Math.pow(10, i - 1);
+				sum += (num * i);
+				if (k <= sum) {
+					size = i;
+					break;
+				}
+			}
+
+			long low = (long)Math.pow(10, size - 1);
+			long high = (long)Math.pow(10, size) - 1;
+
+			long mid, ans = 0, index = 0;
+
+			while (low <= high) {
+				mid = (low + high) / 2;
+				long value = func(mid, size);
+				if (value <= k) {
+					index = Math.max(index, value);
+					ans = Math.max(ans, mid);
+					low = mid + 1;
+				} else
+					high = mid - 1;
+			}
+			String str = String.valueOf(ans);
+
+			for (char i : str.toCharArray()) {
+				if (k == index)
+					pw.println(i);
+				index++;
+			}
 		}
 
 		pw.close();

@@ -1,24 +1,19 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class TwoKnights {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+		long num = in.nextInt
+		           ();
+		for (long n = 1; n <= num; n++) {
+			long ans = (n * n * ((n * n) - 1)) - 8 - 24 - ((n - 4) * 16) - 16 - ((n - 4) * 24) - (8 * (n - 4) * (n - 4));
+			pw.println(ans / 2L);
 		}
-
 		pw.close();
 	}
 

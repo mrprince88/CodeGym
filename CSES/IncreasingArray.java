@@ -1,23 +1,23 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class IncreasingArray {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+		int n = in.nextInt();
+		int []a = in.readArray(n);
+		long ans = 0;
+		for (int i = 1; i < n; i++) {
+			if (a[i] < a[i - 1]) {
+				ans += a[i - 1] - a[i];
+				a[i] = a[i - 1];
+			}
 		}
+		pw.println(ans);
 
 		pw.close();
 	}

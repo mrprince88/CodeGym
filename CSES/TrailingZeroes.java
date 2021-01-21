@@ -1,24 +1,21 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class TrailingZeroes {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+		long n = in.nextLong();
+		int ans = 0;
+
+		for (int i = 5; n / i >= 1; i *= 5) {
+			ans += n / i;
 		}
 
+		pw.println(ans);
 		pw.close();
 	}
 

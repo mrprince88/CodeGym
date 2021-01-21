@@ -1,24 +1,40 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class TwoSets {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
+		long n = in.nextLong();
+		long total = n * (n + 1) / 2L;
+		if ((total & 1) == 1)
+			pw.println("NO");
+		else {
+			pw.println("YES");
+			total = total / 2;
+			List<Long> list1 = new ArrayList<Long>();
+			List<Long> list2 = new ArrayList<Long>();
+			long i = n;
+			while (i != 0) {
+				if (total - i >= 0) {
+					total -= i;
+					list1.add(i);
+				} else
+					list2.add(i);
+				i--;
+			}
+			pw.println(list1.size());
+			for (long j : list1)
+				pw.print(j + " ");
+			pw.println();
+			pw.println(list2.size());
+			for (long j : list2)
+				pw.print(j + " ");
 			pw.println();
 		}
-
 		pw.close();
 	}
 

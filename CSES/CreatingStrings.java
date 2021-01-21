@@ -1,24 +1,46 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class CreatingStrings {
+
+	static Set<String> set = new HashSet<>();
+	static List<String> list = new ArrayList<>();
+
+	static void permutations(char []a, int l, int r) {
+		if (l == r) {
+			if (!set.contains(String.valueOf(a))) {
+				set.add(String.valueOf(a));
+				list.add(String.valueOf(a));
+			}
+			return;
+		}
+
+		else {
+			for (int i = l; i <= r; i++) {
+				swap(a, l, i);
+				permutations(a, l + 1, r);
+				swap(a, l, i);
+			}
+		}
+	}
+
+	static void swap(char []a, int l, int r) {
+		char temp = a[l];
+		a[l] = a[r];
+		a[r] = temp;
+	}
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
-		}
-
+		char []s = in.nextLine().toCharArray();
+		permutations(s, 0, s.length - 1);
+		pw.println(list.size());
+		Collections.sort(list);
+		for (String i : list)
+			pw.println(i);
 		pw.close();
 	}
 

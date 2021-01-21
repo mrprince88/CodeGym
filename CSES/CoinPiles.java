@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class CoinPiles {
 
 
 	public static void main(String[] args)throws IOException {
@@ -10,13 +10,18 @@ public class C {
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
 		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+			int n = in.nextInt(), m = in.nextInt();
+			if (n < m) {
+				int temp = n;
+				n = m;
+				m = temp;
+			}
+			if (n > 2 * m)
+				pw.println("NO");
+			else if ((n + m) % 3 == 0)
+				pw.println("YES");
+			else
+				pw.println("NO");
 		}
 
 		pw.close();

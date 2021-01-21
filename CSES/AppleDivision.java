@@ -1,23 +1,31 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class AppleDivision {
 
+	static long ans = Long.MAX_VALUE;
+
+	static void solve(int []a, long totalSum, long sum, int pointer) {
+		if (pointer == a.length) {
+			if (sum != totalSum)
+				ans = Math.min(Math.abs(2 * sum - totalSum), ans);
+			return;
+		}
+		solve(a, totalSum, sum + a[pointer], pointer + 1);
+		solve(a, totalSum, sum, pointer + 1);
+	}
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
-		}
+		int n = in.nextInt();
+		int []a = in.readArray(n);
+		long sum = 0;
+		for (int i : a)
+			sum += i;
+		solve(a, sum, 0, 0);
+		pw.println(ans);
 
 		pw.close();
 	}

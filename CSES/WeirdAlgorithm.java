@@ -1,22 +1,24 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class WeirdAlgorithm {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+
+		long n = in.nextInt();
+
+		while (n >= 1) {
+			pw.print(n + " ");
+			if (n == 1)
+				break;
+			if ((n & 1) == 1)
+				n = n * 3 + 1;
+			else if ((n & 1) == 0)
+				n = n / 2;
 		}
 
 		pw.close();

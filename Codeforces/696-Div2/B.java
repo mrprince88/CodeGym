@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class B {
 
 
 	public static void main(String[] args)throws IOException {
@@ -10,15 +10,9 @@ public class C {
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
 		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+			int d = in.nextInt();
+			pw.println((d + 1) * (2 * d + 1));
 		}
-
 		pw.close();
 	}
 

@@ -1,21 +1,27 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class Permutations {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
+		int n = in.nextInt();
+		if (n == 1)
+			pw.println(1);
+		else if (n == 2 || n == 3)
+			pw.println("NO SOLUTION");
+		else if (n == 4)
+			pw.println("2 4 1 3");
+		else {
+			for (int i = 1; i <= n; i += 2) {
 				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
+			}
+			for (int j = 2; j <= n; j += 2) {
+				pw.print(j + " ");
+			}
 			pw.println();
 		}
 

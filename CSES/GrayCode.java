@@ -1,24 +1,36 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class GrayCode {
+
+	static ArrayList<String> solve(int n) {
+		if (n == 1) {
+			ArrayList<String> baseRes = new ArrayList<>(Arrays.asList("0", "1"));
+			return baseRes;
+		}
+
+		ArrayList<String> list = solve(n - 1);
+		ArrayList<String> res = new ArrayList<>();
+
+		for (int i = 0; i < list.size(); i++) {
+			res.add("0" + list.get(i));
+		}
+
+		for (int i = list.size() - 1; i >= 0; i--) {
+			res.add("1" + list.get(i));
+		}
+		return res;
+	}
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
-		}
-
+		int n = in.nextInt();
+		ArrayList<String> ans = solve(n);
+		for (String i : ans)
+			pw.println(i);
 		pw.close();
 	}
 

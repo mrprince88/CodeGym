@@ -1,23 +1,27 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class Repetitions {
 
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+		char[] s = in.nextLine().toCharArray();
+		int count = 0, ans = 1, n = s.length;
+		for (int i = 0; i < n - 1; i++) {
+			if (s[i] == s[i + 1])
+				++count;
+			else {
+				ans = Math.max(ans, count + 1);
+				count = 0;
+			}
 		}
+		if (n > 2 && s[n - 1] == s[n - 2])
+			count++;
+		ans = Math.max(ans, count);
+		pw.println(ans);
 
 		pw.close();
 	}

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class A {
 
 
 	public static void main(String[] args)throws IOException {
@@ -11,12 +11,30 @@ public class C {
 		int t = in.nextInt();
 		while (t-- > 0) {
 			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
+			char []a = in.nextLine().toCharArray();
+			int last = -1;
+			char []b = new char[n];
+
+			for (int i = 0; i < a.length; i++) {
+				if (a[i] == '0') {
+					if (last == 1) {
+						b[i] = '0';
+						last = 0;
+					} else {
+						b[i] = '1';
+						last = 1;
+					}
+				} else {
+					if (last == 2) {
+						b[i] = '0';
+						last = 1;
+					} else {
+						b[i] = '1';
+						last = 2;
+					}
+				}
+			}
+			pw.println(String.valueOf(b));
 		}
 
 		pw.close();

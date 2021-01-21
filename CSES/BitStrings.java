@@ -1,24 +1,27 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class BitStrings {
 
+	static long mod = (long)1e9 + 7;
+
+	static long power(int n, int m) {
+		if (m == 0)
+			return 1;
+		long half = power(n, m / 2);
+		if ((m & 1) == 0)
+			return (half * half) % mod;
+		else {
+			return (half * ((half * n) % mod)) % mod;
+		}
+	}
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
-		int t = in.nextInt();
-		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			for (int i = 1; i <= 2 * k - n - 1; i++)
-				pw.print(i + " ");
-			for (int i = k; i > 2 * k - n - 1; i--)
-				pw.print(i + " ");
-			pw.println();
-		}
-
+		int n = in.nextInt();
+		pw.println(power(2, n));
 		pw.close();
 	}
 
