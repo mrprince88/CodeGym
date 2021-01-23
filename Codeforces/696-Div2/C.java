@@ -1,33 +1,75 @@
 import java.io.*;
 import java.util.*;
 
-public class B {
+public class C {
 
+	static int [][]ans;
+	static boolean []visited;
+
+	static int findIdx(int []arr, int n, int val) {
+		int min = 0, max = 2 * n - 1;
+		while (min <= max) {
+			int mid = (max + min) / 2;
+			if (val == arr[mid]) {
+				if (visited[mid])
+					min = mid + 1;
+				else if (mid >= 1 && val == arr[mid - 1] && !visited[mid - 1])
+					max = mid - 1;
+				else
+					return mid;
+			} else if (val > arr[mid])
+				min = mid + 1;
+			else
+				max = mid - 1;
+		}
+		return -1;
+	}
+
+	static boolean solve(int []arr, int n, int idx) {
+		visited = new boolean[2 * n];
+		ans = new int[n][2];
+		ans[0][0] = arr[2 * n - 1];
+		ans[0][1] = arr[idx];
+		visited[2 * n - 1] = visited[idx] = true;
+
+		for (int i = 2 * n - 1, j = 1; i >= 0; i--) {
+			if (visited[i])
+				continue;
+			int nextIdx = findIdx(arr, n, ans[j - 1][0] - arr[i]);
+			if (nextIdx == -1 || nextIdx == i) {
+				return false;
+			}
+			ans[j][0] = arr[i];
+			ans[j][1] = arr[nextIdx];
+			visited[i] = visited[nextIdx] = true;
+			j++;
+		}
+		return true;
+	}
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
-		while (t-- > 0) {
-			int d = in.nextInt();
-			int n = d + 1;
-			while (!isPrime(n))
-				n++;
-			int m = n + d;
-			while (!isPrime(m))
-				m++;
-			pw.println(n * m);
+		outer: while (t-- > 0) {
+			int n = in.nextInt();
+			int []arr = in.readArray(2 * n);
+			ruffleSort(arr);
+
+			for (int i = 0; i < 2 * n; i++) {
+				if (solve(arr, n, i)) {
+					pw.println("YES");
+					pw.println(ans[0][0] + ans[0][1]);
+					for (int j = 0; j < n; j++)
+						pw.println(ans[j][0] + " " + ans[j][1]);
+					continue outer;
+				}
+			}
+
+			pw.println("NO");
 		}
 		pw.close();
-	}
-
-	static boolean isPrime(int n) {
-		for (int i = 2; i * i <= n; i++) {
-			if (n % i == 0)
-				return false;
-		}
-		return true;
 	}
 
 	static final Random random = new Random();
@@ -103,8 +145,3 @@ public class B {
 		}
 	}
 }
-
-
-
-
-
