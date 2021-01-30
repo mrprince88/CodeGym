@@ -23,9 +23,9 @@ public class A {
             long n = in.nextLong();
             long sum = 1;
             if ((w & 1) == 0)
-                sum *= (rightMostSetBit(w) - 1) * 2;
+                sum *= Math.pow(2, (rightMostSetBit(w) - 1));
             if ((h & 1) == 0)
-                sum *= (rightMostSetBit(h) - 1) * 2;
+                sum *= Math.pow(2, (rightMostSetBit(h) - 1));
             if (sum >= n)
                 pw.println("YES");
             else
