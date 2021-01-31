@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class EvenOdd {
+class _1472D {
 
 
 	public static void main(String[] args)throws IOException {
