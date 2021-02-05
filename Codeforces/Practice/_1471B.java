@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class C {
+public class _1471B {
 
 
 	public static void main(String[] args)throws IOException {
@@ -9,32 +9,23 @@ public class C {
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
-		outer: while (t-- > 0) {
+		while (t-- > 0) {
 			int n = in.nextInt();
-			long a[] = new long[2 * n + 1];
-			for (int i = 0; i < 2 * n; i++)
-				a[i] = in.nextLong();
-			a[2 * n] = Long.MAX_VALUE;
-			Arrays.sort(a);
-			for (int i = 1; i < 2 * n; i += 2) {
-				if (a[i] != a[i - 1] || a[i] == a[i + 1]) {
-					pw.println("NO");
-					continue outer;
-				}
+			int x = in.nextInt();
+			int []a = in.readArray(n);
+			int []b = new int[n];
+			for (int i = 0; i < n; i++)
+				b[i] = a[i];
+			boolean []m = new boolean[n];
+			long s = 0;
+			for (int i = 0; !m[i]; i = (i + 1) % n) {
+				s += a[i];
+				m[i] = b[i] % x > 0;
+				b[i] /= x;
 			}
-			long k = 0;
-			for (int i = 2 * n - 1; i >= 0; i -= 2) {
-				a[i] -= k;
-				if (a[i] > 0 && a[i] % (i + 1) == 0) {
-					a[i] /= (i + 1);
-					k += 2 * a[i];
-				} else {
-					pw.println("NO");
-					continue outer;
-				}
-			}
-			pw.println("YES");
+			pw.println(s);
 		}
+
 		pw.close();
 	}
 

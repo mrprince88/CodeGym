@@ -10,15 +10,13 @@ public class A {
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
 		while (t-- > 0) {
-			int n = in.nextInt();
-			int k = in.nextInt();
-			int c = k;
-			while (k < n)
-				k = k + c;
-			int ans = k / n;
-			if (k % n != 0)
-				ans += 1;
-			pw.println(ans);
+			long n = in.nextLong();
+			long k = in.nextLong();
+			long x = (n / k) * k;
+			if (n % k != 0)
+				x += k;
+			pw.println((x + n - 1) / n);
+
 		}
 		pw.close();
 	}
