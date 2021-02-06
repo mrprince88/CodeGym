@@ -1,16 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class B {
-
-	static String lucky(int num, int d) {
-		if (num >= d * 10) return "YES";
-		while (num >= d)  {
-			if (num % d == 0) return "YES";
-			num -= 10;
-		}
-		return "NO";
-	}
+public class A {
 
 
 	public static void main(String[] args)throws IOException {
@@ -19,13 +10,29 @@ public class B {
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
 		while (t-- > 0) {
-			int q = in.nextInt();
-			int d = in.nextInt();
-			int []a = in.readArray(q);
-			for (int i = 0; i < q; i++) {
-				pw.println(lucky(a[i], d));
+			int x = in.nextInt(), y = in.nextInt();
+			char []s = in.nextLine().toCharArray();
+			int l = 0, r = 0, u = 0, d = 0;
+			for (char i : s) {
+				if (i == 'L')
+					l++;
+				else if (i == 'R')
+					r++;
+				else if (i == 'U')
+					u++;
+				else if (i == 'D')
+					d++;
 			}
+			boolean first = (x >= 0 && x <= r) || (x < 0 && (-1 * x) <= l);
+			boolean second = (y >= 0 && y <= u) || (y < 0 && (-1 * y) <= d);
+
+			if (first && second)
+				pw.println("YES");
+			else
+				pw.println("NO");
+
 		}
+
 		pw.close();
 	}
 
@@ -102,5 +109,3 @@ public class B {
 		}
 	}
 }
-
-

@@ -3,28 +3,31 @@ import java.util.*;
 
 public class B {
 
-	static String lucky(int num, int d) {
-		if (num >= d * 10) return "YES";
-		while (num >= d)  {
-			if (num % d == 0) return "YES";
-			num -= 10;
-		}
-		return "NO";
-	}
-
 
 	public static void main(String[] args)throws IOException {
 
 		InputReader in = new InputReader();
 		PrintWriter pw = new PrintWriter(System.out);
 		int t = in.nextInt();
-		while (t-- > 0) {
-			int q = in.nextInt();
-			int d = in.nextInt();
-			int []a = in.readArray(q);
-			for (int i = 0; i < q; i++) {
-				pw.println(lucky(a[i], d));
+		outer: while (t-- > 0) {
+			int n = in.nextInt();
+			long k = in.nextLong();
+			int []a = in.readArray(n);
+			int i = 0;
+			while (i < n - 1 && k > 0) {
+				if (a[i] < a[i + 1]) {
+					a[i]++;
+					k--;
+					if (k == 0) {
+						pw.println(i + 1);
+						continue outer;
+					}
+					if (i > 0 && a[i - 1] < a[i])
+						i--;
+				} else
+					i++;
 			}
+			pw.println(-1);
 		}
 		pw.close();
 	}
@@ -102,5 +105,3 @@ public class B {
 		}
 	}
 }
-
-
