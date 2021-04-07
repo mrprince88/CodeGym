@@ -1,9 +1,9 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class B {
     public static void main(String[] args) {
-        Scanner kb = new Scanner(System.in);
-        int a = kb.nextInt();
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
         while (a >= 10) {
             int m = a, x = 0;
             while (m > 0) {
