@@ -31,7 +31,7 @@ class CalenderMatching {
 			if (compare(calender1.get(i)[0], calender2.get(j)[0]) > 0)
 				mergedList.add(calender2.get(j++));
 			else
-				mergedList.add(calender2.get(i++));
+				mergedList.add(calender1.get(i++));
 		}
 		while (i < calender1.size())
 			mergedList.add(calender2.get(i++));
@@ -43,7 +43,7 @@ class CalenderMatching {
 
 	static ArrayList<Time[]> flattenCalender(ArrayList<Time[]> calender) {
 
-		if(calender.isEmpty())
+		if (calender.isEmpty())
 			return calender;
 
 		ArrayList<Time[]> flattenedList = new ArrayList<>();
@@ -54,13 +54,13 @@ class CalenderMatching {
 			Time[] currentMeeting = calender.get(i);
 
 			if (compare(previousMeeting[1], currentMeeting[0]) >= 0)
-				previousMeeting[1] = currentMeeting[1];
-			else{
+				previousMeeting[1] = compare(previousMeeting[1], currentMeeting[1]) >= 0 ? previousMeeting[1] : currentMeeting[1];
+			else {
 				flattenedList.add(currentMeeting);
-				previousMeeting=currentMeeting;
+				previousMeeting = currentMeeting;
 			}
 		}
-		
+
 		return flattenedList;
 	}
 
