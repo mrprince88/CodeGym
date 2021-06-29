@@ -6,29 +6,28 @@ class RiverSizes {
 	static List<Integer> getRiverSizes(int [][]matrix) {
 
 		List<Integer> sizes = new ArrayList<>();
-		boolean [][]visited = new boolean[matrix.length][matrix[0].length];
-		dfs(matrix, 0, 0, sizes, 0, visited);
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				if (matrix[i][i] == 1) {
+					int size = dfs(matrix, i, j);
+					if (size > 0)
+						sizes.add(size);
+				}
+			}
+		}
 
 		return sizes;
 	}
 
-	static void dfs(int [][]matrix, int r, int c, List<Integer> sizes, int size, boolean[][]visited) {
+	static int dfs(int [][]matrix, int r, int c) {
 
-		if (r < 0 || c < 0 || r >= matrix.length || c >= matrix[0].length || visited[r][c])
-			return;
+		if (r == -1 || c == -1 || r == matrix.length || c == matrix[0].length || matrix[r][c] == 0)
+			return 0;
 
-		visited[r][c] = true;
-		if (matrix[r][c] == 0) {
-			if (size != 0)
-				sizes.add(size);
-			size = 0;
-		} else
-			size++;
+		matrix[r][c] = 0;
 
-		dfs(matrix, r + 1, c, sizes, size, visited);
-		dfs(matrix, r - 1, c, sizes, size, visited);
-		dfs(matrix, r, c + 1, sizes, size, visited);
-		dfs(matrix, r, c - 1, sizes, size, visited);
+		return 1 + dfs(matrix, r + 1, c) + dfs(matrix, r - 1, c) + dfs(matrix, r, c + 1) + dfs(matrix, r, c - 1);
 
 	}
 
@@ -44,4 +43,4 @@ class RiverSizes {
 	}
 }
 
-// [2, 2, 5, 1, 2]
+// [2, 1, 5, 2, 2]
