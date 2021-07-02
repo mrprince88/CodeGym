@@ -1,10 +1,10 @@
 class YoungestCommonAncestor {
 
 	static class Node {
-		Node ancestor;
+		Node parent;
 		char val;
 		Node(char val, Node prev) {
-			ancestor = prev;
+			parent = prev;
 			this.val = val;
 		}
 	}
@@ -26,7 +26,7 @@ class YoungestCommonAncestor {
 
 		while (manager != topManager) {
 			depth++;
-			manager = manager.ancestor;
+			manager = manager.parent;
 		}
 
 		return depth;
@@ -34,11 +34,11 @@ class YoungestCommonAncestor {
 
 	static Node backTraverse(Node lower, Node higher, int diff) {
 		while (diff-- > 0)
-			lower = lower.ancestor;
+			lower = lower.parent;
 
 		while (lower != higher) {
-			lower = lower.ancestor;
-			higher = higher.ancestor;
+			lower = lower.parent;
+			higher = higher.parent;
 		}
 
 		return lower;
