@@ -51,7 +51,7 @@ class TopologicalSort {
 
 			if (visited[v.val] == 2) return false;
 			if (visited[v.val] == 1) return true;
-
+			visited[v.val]=1;
 			for (int i = 0; i < v.prereqs.size(); i++) {
 				if (dfs(v.prereqs.get(i), visited, list)) //checking if there is a cycle in graph
 					return true;
