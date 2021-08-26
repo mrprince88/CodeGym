@@ -4,21 +4,27 @@ import java.util.*;
 
 public class ConnnectedHorses {
 
+	static class Pair {
+		int x, y;
+		Pair(int x1, int y1) {
+			x = x1; y = y1;
+		}
+	}
+
 	static int [][]dirs = {{ -2, 1}, {2, -1}, { -1, -2}, { -1, 2}, {1, 2}, {1, -2}, { -2, -1}, {2, 1}};
 	static int [][]graph;
 	static int n, m;
 	static int mod = (int)(1e9 + 7);
 	static long []fact;
-	static int[][]dp;
 
 	static int solver() {
-		dp = new int[n + 1][m + 1];
+		boolean [][]visited = new boolean[n + 1][m + 1];
 		long res = 1;
 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
-				if (graph[i][j] == 1) {
-					int len = dfs(i, j);
+				if (!visited[i][j] && graph[i][j] == 1) {
+					int len = bfs(i, j, visited);
 					res = (res % mod * fact[len] % mod) % mod;
 				}
 			}
@@ -27,18 +33,25 @@ public class ConnnectedHorses {
 		return (int)res;
 	}
 
-	static int dfs(int i, int j) {
-		if (dp[i][j] > 0) return dp[i][j];
-		graph[i][j] = 0;
+	static int bfs(int x, int y, boolean [][]visited) {
+		visited[x][y] = true;
+		int len = 1;
+		Queue<Pair> q = new LinkedList<>();
+		q.add(new Pair(x, y));
 
-		for (int []dir : dirs) {
-			int x = i + dir[0], y = j + dir[1];
-			if (x >= 0 && x < n && y >= 0 && y < m && graph[x][y] == 1) {
-				dp[i][j] += dfs(x, y);
+		while (!q.isEmpty()) {
+			Pair curr = q.poll();
+			int i = curr.x, j = curr.y;
+			for (int []dir : dirs) {
+				int x1 = i + dir[0], y1 = j + dir[1];
+				if (x1 >= 0 && x1 < n && y1 >= 0 && y1 < m && !visited[x1][y1] && graph[x1][y1] == 1) {
+					visited[x1][y1] = true;
+					len++;
+					q.add(new Pair(x1, y1));
+				}
 			}
 		}
-		dp[i][j]++;
-		return dp[i][j];
+		return len;
 	}
 
 	public static void main(String[] args)throws IOException {
