@@ -28,7 +28,7 @@ class ContinuousMedian {
 
 			if (temp != idx) {
 				swap(idx, temp);
-				siftDown(endIdx, temp);
+				shiftDown(endIdx, temp);
 			}
 
 		}
@@ -39,7 +39,7 @@ class ContinuousMedian {
 
 			if (idx > 0 && c.compare(heap[idx], heap[parentIdx]) == heap[idx]) {
 				swap(idx, parentIdx);
-				siftUp(parentIdx);
+				shiftUp(parentIdx);
 			}
 		}
 
@@ -65,14 +65,14 @@ class ContinuousMedian {
 			}
 
 			heap[len] = val;
-			siftUp(len++);
+			shiftUp(len++);
 		}
 
 		int remove() {
 			int toRemove = heap[0];
 			len--;
 			swap(0, len);
-			siftDown(0, len);
+			shiftDown(0, len);
 			return toRemove;
 		}
 

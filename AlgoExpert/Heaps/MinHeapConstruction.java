@@ -17,7 +17,7 @@ class MinHeapConstruction {
 
 		if (smallest != idx) {
 			swap(heap, idx, smallest);
-			siftDown(heap, endIdx, smallest);
+			shiftDown(heap, endIdx, smallest);
 		}
 
 	}
@@ -28,7 +28,7 @@ class MinHeapConstruction {
 		int firstParentIdx = len - 2 / 2;
 
 		for (int i = firstParentIdx - 1; i >= 0; i--)
-			siftDown(heap, i, len);
+			shiftDown(heap, i, len);
 
 		return heap;
 	}
@@ -40,7 +40,7 @@ class MinHeapConstruction {
 
 		if (idx > 0 && heap[idx] < heap[parentIdx]) {
 			swap(heap, idx, parentIdx);
-			siftUp(heap, parentIdx);
+			shiftUp(heap, parentIdx);
 		}
 
 	}
@@ -56,7 +56,7 @@ class MinHeapConstruction {
 		int toRemove = heap[0];
 		len--;
 		swap(heap, 0, len);
-		siftDown(heap, 0, len);
+		shiftDown(heap, 0, len);
 		return toRemove;
 
 	}
@@ -69,7 +69,7 @@ class MinHeapConstruction {
 		}
 
 		heap[len] = val;
-		siftUp(heap, len++);
+		shiftUp(heap, len++);
 	}
 
 	static void swap(int []heap, int i, int j) {
