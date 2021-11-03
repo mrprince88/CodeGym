@@ -14,7 +14,7 @@ class ContinuousMedian {
 			this.c = compare;
 		}
 
-		void siftDown(int idx, int endIdx) {
+		void shiftDown(int idx, int endIdx) {
 
 			int temp = idx;
 			int l = 2 * idx + 1;
@@ -33,7 +33,7 @@ class ContinuousMedian {
 
 		}
 
-		void siftUp(int idx) {
+		void shiftUp(int idx) {
 
 			int parentIdx = (idx - 1) / 2;
 

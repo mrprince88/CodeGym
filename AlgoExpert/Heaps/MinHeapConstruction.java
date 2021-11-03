@@ -3,7 +3,7 @@ import java.util.*;
 class MinHeapConstruction {
 
 	// O(log n) time | O(1) space
-	static void siftDown(int []heap, int idx, int endIdx) {
+	static void shiftDown(int []heap, int idx, int endIdx) {
 
 		int smallest = idx;
 		int l = 2 * idx + 1;
@@ -34,7 +34,7 @@ class MinHeapConstruction {
 	}
 
 	// O(log n) time | O(1) space
-	static void siftUp(int []heap, int idx) {
+	static void shiftUp(int []heap, int idx) {
 
 		int parentIdx = (idx - 1) / 2;
 
