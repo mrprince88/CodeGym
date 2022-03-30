@@ -8,12 +8,12 @@ class HeapSort {
 
         for (int i = n - 1; i >= 1; i--) {
             swap(a, i, 0);
-            siftDown(a, i, 0);
+            shiftDown(a, i, 0);
         }
 
     }
 
-    static void siftDown(int a[], int n, int i) {
+    static void shiftDown(int a[], int n, int i) {
 
         int largest = i;
         int l = 2 * i + 1;
@@ -27,7 +27,7 @@ class HeapSort {
 
         if (largest != i) {
             swap(a, i, largest);
-            siftDown(a, n, largest);
+            shiftDown(a, n, largest);
         }
 
     }
